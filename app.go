@@ -23,34 +23,10 @@ var (
 func main() {
 	flag.Parse()
 
-	if *generateRouterConfig {
-		disk.GenerateRouterConfigToFile(*routerConfigFile)
-		os.Exit(0)
+	checkForGenerateFlags()
 
-	}
-
-	if *generateJobConfig {
-		disk.GenerateJobConfigToFile(*jobConfigFile)
-		os.Exit(0)
-	}
-
-	if *generateMachineSpecsConfig {
-		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
-		os.Exit(0)
-
-	}
-
-	if *generateAll {
-		disk.GenerateRouterConfigToFile(*routerConfigFile)
-		disk.GenerateJobConfigToFile(*jobConfigFile)
-		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
-		os.Exit(0)
-
-	}
-
-	var machineSpecs model.MachineSpecs
 	routerConfig := disk.LoadRouterConfig(*routerConfigFile)
-	machineSpecs = disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
+	var machineSpecs model.MachineSpecs = disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
 	job := disk.LoadJobConfig(*jobConfigFile)
 
 	//devices := cli.GetDevices(routerConfig)
@@ -66,4 +42,28 @@ func main() {
 	machineSpecs.Println()
 	job.Println()
 
+}
+
+func checkForGenerateFlags() {
+	if *generateRouterConfig {
+		disk.GenerateRouterConfigToFile(*routerConfigFile)
+		os.Exit(0)
+	}
+
+	if *generateJobConfig {
+		disk.GenerateJobConfigToFile(*jobConfigFile)
+		os.Exit(0)
+	}
+
+	if *generateMachineSpecsConfig {
+		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
+		os.Exit(0)
+	}
+
+	if *generateAll {
+		disk.GenerateRouterConfigToFile(*routerConfigFile)
+		disk.GenerateJobConfigToFile(*jobConfigFile)
+		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
+		os.Exit(0)
+	}
 }

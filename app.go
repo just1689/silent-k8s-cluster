@@ -13,6 +13,9 @@ var (
 
 	jobConfigFile     = flag.String("jobConfigFile", "job-config.json", "The name of the job-config.json file")
 	generateJobConfig = flag.Bool("generateJob", false, "Generate a job-config.json file")
+
+	machineSpecsConfigFile     = flag.String("machineSpecsConfigFile", "machine-specs-config.json", "The name of the machine-specs-config.json file")
+	generateMachineSpecsConfig = flag.Bool("generateMachineSpecs", false, "Generate a machine-specs-config.json file")
 )
 
 func main() {
@@ -24,6 +27,10 @@ func main() {
 
 	if *generateJobConfig {
 		disk.GenerateJobConfigToFile(*jobConfigFile)
+	}
+
+	if *generateMachineSpecsConfig {
+		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
 	}
 
 	config := disk.LoadRouterConfig(*routerConfigFile)

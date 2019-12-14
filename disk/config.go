@@ -8,6 +8,32 @@ import (
 	"os"
 )
 
+func GenerateMachineSpecsConfigToFile(filename string) {
+	item := []model.MachineSpec{
+		{
+			SpecName: "cp",
+			Memory:   "2GB",
+			Disk:     "20GB",
+		},
+		{
+			SpecName: "wn",
+			Memory:   "8GB",
+			Disk:     "100GB",
+		},
+	}
+	b, err := json.Marshal(item)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	err = ioutil.WriteFile(filename, b, 0644)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	logrus.Println("Complete!")
+	os.Exit(0)
+
+}
+
 func GenerateJobConfigToFile(filename string) {
 	item := model.Job{
 		Name: "majestic-job",

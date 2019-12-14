@@ -1,6 +1,9 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type RouterConfig struct {
 	Address  string `json:"address"`
@@ -10,7 +13,7 @@ type RouterConfig struct {
 
 func (i *RouterConfig) Println() {
 	fmt.Println("---")
-	fmt.Println("Router Address: " + i.Address + ", Username: " + i.Username + ", Password: " + i.Password)
+	fmt.Println("Router Address: " + i.Address + ", Username: " + i.Username + ", Password: " + strings.Repeat("*", len(i.Password)))
 }
 
 type DeviceLease struct {

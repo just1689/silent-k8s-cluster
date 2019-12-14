@@ -2,6 +2,8 @@ package main
 
 import (
 	"flag"
+	"fmt"
+	"github.com/just1689/silent-k8s-cluster/cli"
 	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/model"
 	"os"
@@ -25,22 +27,46 @@ func main() {
 
 	checkForGenerateFlags()
 
+	fmt.Println("Loading config")
+
 	routerConfig := disk.LoadRouterConfig(*routerConfigFile)
 	var machineSpecs model.MachineSpecs = disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
 	job := disk.LoadJobConfig(*jobConfigFile)
 
-	//devices := cli.GetDevices(routerConfig)
-	//for _, d := range devices {
-	//	if d.IsCandidate() {
-	//		fmt.Println("Device: ", d.ToString())
-	//	}
-	//}
-
 	//virt.CreateVM("zzz", "2GB")
+
+	fmt.Println("   > config loaded")
 
 	routerConfig.Println()
 	machineSpecs.Println()
 	job.Println()
+
+	fmt.Println("Connecting to Router")
+	devices := cli.GetDevices(routerConfig)
+	fmt.Println("   > success")
+	fmt.Print("Devices without hostname: ")
+	total := 0
+	for _, d := range devices {
+		if d.IsCandidate() {
+			total++
+		}
+	}
+	fmt.Println(total)
+
+	runSpecTests(job, machineSpecs)
+
+}
+
+func runSpecTests(job model.Job, specs model.MachineSpecs) {
+	fmt.Println("---")
+	fmt.Println("Checking that Job->[]Machines exist")
+	for _, m := range job.Machines {
+		found, spec := specs.FindByName(m.MachineSpec)
+		if !found {
+			panic(fmt.Errorf("  Could not find MachineSpec named: ", m.MachineSpec))
+		}
+		fmt.Println("  > success: ", spec.SpecName)
+	}
 
 }
 

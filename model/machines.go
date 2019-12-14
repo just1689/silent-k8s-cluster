@@ -25,6 +25,16 @@ func (i *MachineSpec) ToString() string {
 
 type MachineSpecs []MachineSpec
 
+func (s MachineSpecs) FindByName(in string) (found bool, result MachineSpec) {
+	for _, result = range s {
+		if result.SpecName == in {
+			found = true
+			return
+		}
+	}
+	return
+}
+
 func (m MachineSpecs) Println() {
 	fmt.Println("---")
 	fmt.Println("MachineSpecs:")

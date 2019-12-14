@@ -24,7 +24,7 @@ type DeviceLease struct {
 }
 
 func (d *DeviceLease) ToString() string {
-	return "AMA: " + d.ActiveMacAddress + ", HN: " + d.Hostname + ", Addr: " + d.Address + ", MA: " + d.MacAddress
+	return "ActiveMacAddress: " + d.ActiveMacAddress + ", Hostname: " + d.Hostname + ", Address: " + d.Address + ", MacAddress: " + d.MacAddress
 }
 func (d *DeviceLease) IsCandidate() bool {
 	return d.Hostname == ""

@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/model"
+	"os"
 )
 
 var (
@@ -15,6 +16,8 @@ var (
 
 	machineSpecsConfigFile     = flag.String("machineSpecsConfigFile", "machine-specs-config.json", "The name of the machine-specs-config.json file")
 	generateMachineSpecsConfig = flag.Bool("generateMachineSpecs", false, "Generate a machine-specs-config.json file")
+
+	generateAll = flag.Bool("generateAll", false, "Generate router, machine spec and job files")
 )
 
 func main() {
@@ -22,14 +25,27 @@ func main() {
 
 	if *generateRouterConfig {
 		disk.GenerateRouterConfigToFile(*routerConfigFile)
+		os.Exit(0)
+
 	}
 
 	if *generateJobConfig {
 		disk.GenerateJobConfigToFile(*jobConfigFile)
+		os.Exit(0)
 	}
 
 	if *generateMachineSpecsConfig {
 		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
+		os.Exit(0)
+
+	}
+
+	if *generateAll {
+		disk.GenerateRouterConfigToFile(*routerConfigFile)
+		disk.GenerateJobConfigToFile(*jobConfigFile)
+		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
+		os.Exit(0)
+
 	}
 
 	var machineSpecs model.MachineSpecs

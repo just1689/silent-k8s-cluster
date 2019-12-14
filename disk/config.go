@@ -5,7 +5,6 @@ import (
 	"github.com/just1689/silent-k8s-cluster/model"
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
-	"os"
 )
 
 func GenerateMachineSpecsConfigToFile(filename string) {
@@ -29,8 +28,7 @@ func GenerateMachineSpecsConfigToFile(filename string) {
 	if err != nil {
 		logrus.Panicln(err)
 	}
-	logrus.Println("Complete!")
-	os.Exit(0)
+	logrus.Println("Completed Machine Specs Generation")
 
 }
 
@@ -66,8 +64,7 @@ func GenerateJobConfigToFile(filename string) {
 	if err != nil {
 		logrus.Panicln(err)
 	}
-	logrus.Println("Complete!")
-	os.Exit(0)
+	logrus.Println("Completed Job Generation")
 
 }
 
@@ -85,8 +82,7 @@ func GenerateRouterConfigToFile(filename string) {
 	if err != nil {
 		logrus.Panicln(err)
 	}
-	logrus.Println("Complete!")
-	os.Exit(0)
+	logrus.Println("Completed Router Config Generation")
 
 }
 

@@ -1,14 +1,16 @@
 package virt
 
 import (
-	"fmt"
+	"errors"
 	"github.com/just1689/silent-k8s-cluster/cli"
+	"github.com/just1689/silent-k8s-cluster/model"
 )
 
-func CreateVM(name string, memory string) {
-
-	s := `New-VM -Name "` + name + `" -MemoryStartupBytes ` + memory
-	stdO, stdE := cli.ExecutePS(s)
-	fmt.Println(stdO, stdE)
-
+func CreateVM(machine model.Machine, spec model.MachineSpec) (err error) {
+	s := `New-VM -Name "` + machine.Name + `" -MemoryStartupBytes ` + spec.Memory
+	_, stdE := cli.ExecutePS(s)
+	if stdE != "" {
+		return errors.New(stdE)
+	}
+	return
 }

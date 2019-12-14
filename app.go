@@ -6,6 +6,7 @@ import (
 	"github.com/just1689/silent-k8s-cluster/cli"
 	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/model"
+	"github.com/just1689/silent-k8s-cluster/virt"
 	"os"
 )
 
@@ -33,8 +34,6 @@ func main() {
 	var machineSpecs model.MachineSpecs = disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
 	job := disk.LoadJobConfig(*jobConfigFile)
 
-	//virt.CreateVM("zzz", "2GB")
-
 	fmt.Println("   > config loaded")
 
 	routerConfig.Println()
@@ -54,6 +53,23 @@ func main() {
 	fmt.Println(total)
 
 	model.RunSpecTests(job, machineSpecs)
+
+	fmt.Println("---")
+	fmt.Println("Starting job!")
+	for _, machine := range job.Machines {
+		fmt.Println("  ", machine.ToString())
+
+		fmt.Println("  Creating Machine as spec:")
+		_, spec := machineSpecs.FindByName(machine.MachineSpec)
+		fmt.Println("    ", spec.ToString())
+		err := virt.CreateVM(machine, spec)
+		if err != nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println("    > success")
+		}
+
+	}
 
 }
 

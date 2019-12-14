@@ -6,6 +6,10 @@ type RouterConfig struct {
 	Password string `json:"password"`
 }
 
+func (i *RouterConfig) ToString() string {
+	return "Address: " + i.Address + ", Username: " + i.Username + ", Password: " + i.Password
+}
+
 type DeviceLease struct {
 	ActiveMacAddress string
 	Hostname         string
@@ -14,7 +18,7 @@ type DeviceLease struct {
 }
 
 func (d *DeviceLease) ToString() string {
-	return "AMA: " + d.ActiveMacAddress + ", HN: " + d.Hostname + " Addr: " + d.Address + ", MA: " + d.MacAddress
+	return "AMA: " + d.ActiveMacAddress + ", HN: " + d.Hostname + ", Addr: " + d.Address + ", MA: " + d.MacAddress
 }
 func (d *DeviceLease) IsCandidate() bool {
 	return d.Hostname == ""

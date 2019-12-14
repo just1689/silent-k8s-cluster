@@ -102,3 +102,29 @@ func LoadRouterConfig(filename string) model.RouterConfig {
 	}
 	return result
 }
+
+func LoadMachineSpecsConfig(filename string) []model.MachineSpec {
+	result := []model.MachineSpec{}
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	err = json.Unmarshal(b, &result)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	return result
+}
+
+func LoadJobConfig(filename string) model.Job {
+	result := model.Job{}
+	b, err := ioutil.ReadFile(filename)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	err = json.Unmarshal(b, &result)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	return result
+}

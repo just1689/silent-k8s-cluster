@@ -2,9 +2,9 @@ package main
 
 import (
 	"flag"
-	"fmt"
-	"github.com/just1689/silent-k8s-cluster/cli"
 	"github.com/just1689/silent-k8s-cluster/disk"
+	"github.com/just1689/silent-k8s-cluster/model"
+	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -33,14 +33,22 @@ func main() {
 		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
 	}
 
-	config := disk.LoadRouterConfig(*routerConfigFile)
-	devices := cli.GetDevices(config)
-	for _, d := range devices {
-		if d.IsCandidate() {
-			fmt.Println("Device: ", d.ToString())
-		}
-	}
+	var machineSpecs model.MachineSpecs
+	routerConfig := disk.LoadRouterConfig(*routerConfigFile)
+	machineSpecs = disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
+	job := disk.LoadJobConfig(*jobConfigFile)
+
+	//devices := cli.GetDevices(routerConfig)
+	//for _, d := range devices {
+	//	if d.IsCandidate() {
+	//		fmt.Println("Device: ", d.ToString())
+	//	}
+	//}
 
 	//virt.CreateVM("zzz", "2GB")
+
+	logrus.Println(routerConfig.ToString())
+	logrus.Println(machineSpecs.ToString())
+	logrus.Println(job.ToString())
 
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/just1689/silent-k8s-cluster/virt"
 	"gopkg.in/routeros.v2"
 	"log"
 	"os"
@@ -42,6 +43,8 @@ func main() {
 			fmt.Println("Device: ", d.ToString())
 		}
 	}
+
+	virt.CreateVM("zzz", "2GB")
 
 }
 

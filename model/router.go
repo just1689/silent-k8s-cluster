@@ -1,13 +1,16 @@
 package model
 
+import "fmt"
+
 type RouterConfig struct {
 	Address  string `json:"address"`
 	Username string `json:"username"`
 	Password string `json:"password"`
 }
 
-func (i *RouterConfig) ToString() string {
-	return "Address: " + i.Address + ", Username: " + i.Username + ", Password: " + i.Password
+func (i *RouterConfig) Println() {
+	fmt.Println("---")
+	fmt.Println("Router Address: " + i.Address + ", Username: " + i.Username + ", Password: " + i.Password)
 }
 
 type DeviceLease struct {

@@ -1,5 +1,7 @@
 package model
 
+import "fmt"
+
 type Machine struct {
 	Name          string `json:"name"`
 	IPAddress     string `json:"ipAddress"`
@@ -23,10 +25,10 @@ func (i *MachineSpec) ToString() string {
 
 type MachineSpecs []MachineSpec
 
-func (m MachineSpecs) ToString() string {
-	result := ""
+func (m MachineSpecs) Println() {
+	fmt.Println("---")
+	fmt.Println("MachineSpecs:")
 	for _, i := range m {
-		result += "SpecName: " + i.SpecName + ", Memory: " + i.Memory + ", Disk: " + i.Disk + "\n"
+		fmt.Println("   SpecName: " + i.SpecName + ", Memory: " + i.Memory + ", Disk: " + i.Disk)
 	}
-	return result
 }

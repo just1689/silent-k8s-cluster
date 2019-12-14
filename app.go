@@ -4,7 +4,6 @@ import (
 	"flag"
 	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/model"
-	"github.com/sirupsen/logrus"
 )
 
 var (
@@ -47,8 +46,8 @@ func main() {
 
 	//virt.CreateVM("zzz", "2GB")
 
-	logrus.Println(routerConfig.ToString())
-	logrus.Println(machineSpecs.ToString())
-	logrus.Println(job.ToString())
+	routerConfig.Println()
+	machineSpecs.Println()
+	job.Println()
 
 }

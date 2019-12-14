@@ -8,7 +8,7 @@ import (
 	"os"
 )
 
-func GenerateRouterConfigToFile() {
+func GenerateRouterConfigToFile(filename string) {
 	c := model.RouterConfig{
 		Address:  "192.168.0.1:8728",
 		Username: "admin",
@@ -18,7 +18,7 @@ func GenerateRouterConfigToFile() {
 	if err != nil {
 		logrus.Panicln(err)
 	}
-	err = ioutil.WriteFile("router-config.json", b, 0644)
+	err = ioutil.WriteFile(filename, b, 0644)
 	if err != nil {
 		logrus.Panicln(err)
 	}
@@ -27,9 +27,9 @@ func GenerateRouterConfigToFile() {
 
 }
 
-func LoadRouterConfig() model.RouterConfig {
+func LoadRouterConfig(filename string) model.RouterConfig {
 	result := model.RouterConfig{}
-	b, err := ioutil.ReadFile("router-config.json")
+	b, err := ioutil.ReadFile(filename)
 	if err != nil {
 		logrus.Panicln(err)
 	}

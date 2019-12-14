@@ -8,8 +8,11 @@ import (
 )
 
 var (
-	generateRouterConfig = flag.Bool("generate", false, "Generate a router-config.json file")
 	routerConfigFile     = flag.String("routerConfigFile", "router-config.json", "The name of the router-config.json file")
+	generateRouterConfig = flag.Bool("generateRouter", false, "Generate a router-config.json file")
+
+	jobConfigFile     = flag.String("jobConfigFile", "job-config.json", "The name of the job-config.json file")
+	generateJobConfig = flag.Bool("generateJob", false, "Generate a job-config.json file")
 )
 
 func main() {
@@ -17,6 +20,10 @@ func main() {
 
 	if *generateRouterConfig {
 		disk.GenerateRouterConfigToFile(*routerConfigFile)
+	}
+
+	if *generateJobConfig {
+		disk.GenerateJobConfigToFile(*jobConfigFile)
 	}
 
 	config := disk.LoadRouterConfig(*routerConfigFile)

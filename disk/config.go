@@ -8,6 +8,43 @@ import (
 	"os"
 )
 
+func GenerateJobConfigToFile(filename string) {
+	item := model.Job{
+		Name: "majestic-job",
+		Machines: []model.Machine{
+			{
+				Name:          "z-cp1",
+				IPAddress:     "192.168.0.151",
+				VirtualSwitch: "My Virtual Switch (ext)",
+				MachineSpec:   "cp",
+			},
+			{
+				Name:          "z-wn1",
+				IPAddress:     "192.168.0.152",
+				VirtualSwitch: "My Virtual Switch (ext)",
+				MachineSpec:   "wn",
+			},
+			{
+				Name:          "z-wn2",
+				IPAddress:     "192.168.0.153",
+				VirtualSwitch: "My Virtual Switch (ext)",
+				MachineSpec:   "wn",
+			},
+		},
+	}
+	b, err := json.Marshal(item)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	err = ioutil.WriteFile(filename, b, 0644)
+	if err != nil {
+		logrus.Panicln(err)
+	}
+	logrus.Println("Complete!")
+	os.Exit(0)
+
+}
+
 func GenerateRouterConfigToFile(filename string) {
 	c := model.RouterConfig{
 		Address:  "192.168.0.1:8728",

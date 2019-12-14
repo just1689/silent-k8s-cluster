@@ -4,7 +4,7 @@ import "fmt"
 
 func RunSpecTests(job Job, specs MachineSpecs) {
 	fmt.Println("---")
-	fmt.Println("Checking that Job->[]Machines exist")
+	fmt.Println("Checking that Job->[]Machines.SpecName exist")
 	for _, m := range job.Machines {
 		found, spec := specs.FindByName(m.MachineSpec)
 		if !found {

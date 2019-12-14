@@ -31,7 +31,7 @@ func main() {
 	fmt.Println("Loading config")
 
 	routerConfig := disk.LoadRouterConfig(*routerConfigFile)
-	var machineSpecs model.MachineSpecs = disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
+	machineSpecs := disk.LoadMachineSpecsConfig(*machineSpecsConfigFile)
 	job := disk.LoadJobConfig(*jobConfigFile)
 
 	fmt.Println("   > config loaded")

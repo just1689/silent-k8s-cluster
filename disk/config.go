@@ -99,7 +99,7 @@ func LoadRouterConfig(filename string) model.RouterConfig {
 	return result
 }
 
-func LoadMachineSpecsConfig(filename string) []model.MachineSpec {
+func LoadMachineSpecsConfig(filename string) model.MachineSpecs {
 	result := []model.MachineSpec{}
 	b, err := ioutil.ReadFile(filename)
 	if err != nil {

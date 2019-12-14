@@ -53,20 +53,7 @@ func main() {
 	}
 	fmt.Println(total)
 
-	runSpecTests(job, machineSpecs)
-
-}
-
-func runSpecTests(job model.Job, specs model.MachineSpecs) {
-	fmt.Println("---")
-	fmt.Println("Checking that Job->[]Machines exist")
-	for _, m := range job.Machines {
-		found, spec := specs.FindByName(m.MachineSpec)
-		if !found {
-			panic(fmt.Errorf("  Could not find MachineSpec named: ", m.MachineSpec))
-		}
-		fmt.Println("  > success: ", spec.SpecName)
-	}
+	model.RunSpecTests(job, machineSpecs)
 
 }
 

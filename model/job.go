@@ -1,5 +1,6 @@
 package model
 
 type Job struct {
-	Machines []Machine
+	Name     string    `json:"name"`
+	Machines []Machine `json:"machines"`
 }

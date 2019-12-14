@@ -3,22 +3,26 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/virt"
 	"gopkg.in/routeros.v2"
 	"log"
-	"os"
 )
 
 var (
-	address  = flag.String("address", os.Getenv("ADDRESS"), "Address")
-	username = flag.String("username", os.Getenv("USERNAME"), "Username")
-	password = flag.String("password", os.Getenv("PASSWORD"), "Password")
+	generateRouterConfig = flag.Bool("generate", false, "Generate a router-config.json file")
 )
 
 func main() {
 	flag.Parse()
 
-	c, err := routeros.Dial(*address, *username, *password)
+	if *generateRouterConfig {
+		disk.GenerateRouterConfigToFile()
+	}
+
+	config := disk.LoadRouterConfig()
+
+	c, err := routeros.Dial(config.Address, config.Username, config.Password)
 	if err != nil {
 		log.Fatal(err)
 	}

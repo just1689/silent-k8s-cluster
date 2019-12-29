@@ -11,11 +11,13 @@ func GenerateMachineSpecsConfigToFile(filename string) {
 	item := []model.MachineSpec{
 		{
 			Name:   "cp",
+			CPUs:   4,
 			Memory: "2GB",
 			Disk:   "20GB",
 		},
 		{
 			Name:   "wn",
+			CPUs:   4,
 			Memory: "8GB",
 			Disk:   "100GB",
 		},
@@ -34,7 +36,9 @@ func GenerateMachineSpecsConfigToFile(filename string) {
 
 func GenerateJobConfigToFile(filename string) {
 	item := model.Job{
-		Name: "majestic-job",
+		Name:    "majestic-job",
+		VMPath:  "C:\\vms\\",
+		ISOPath: "C:\\ubuntu-silent-install.iso",
 		Machines: []model.Machine{
 			{
 				Name:          "z-cp1",

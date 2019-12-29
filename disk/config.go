@@ -10,14 +10,14 @@ import (
 func GenerateMachineSpecsConfigToFile(filename string) {
 	item := []model.MachineSpec{
 		{
-			SpecName: "cp",
-			Memory:   "2GB",
-			Disk:     "20GB",
+			Name:   "cp",
+			Memory: "2GB",
+			Disk:   "20GB",
 		},
 		{
-			SpecName: "wn",
-			Memory:   "8GB",
-			Disk:     "100GB",
+			Name:   "wn",
+			Memory: "8GB",
+			Disk:   "100GB",
 		},
 	}
 	b, err := json.Marshal(item)

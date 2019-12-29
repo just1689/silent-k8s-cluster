@@ -14,20 +14,21 @@ func (i *Machine) ToString() string {
 }
 
 type MachineSpec struct {
-	SpecName string `json:"specName"`
-	Memory   string `json:"memory"`
-	Disk     string `json:"disk"`
+	Name   string `json:"name"`
+	CPUs   int    `json:"cpus"`
+	Memory string `json:"memory"`
+	Disk   string `json:"disk"`
 }
 
 func (i *MachineSpec) ToString() string {
-	return "SpecName: " + i.SpecName + ", Memory: " + i.Memory + ", Disk: " + i.Disk
+	return "SpecName: " + i.Name + ", Memory: " + i.Memory + ", Disk: " + i.Disk
 }
 
 type MachineSpecs []MachineSpec
 
 func (s MachineSpecs) FindByName(in string) (found bool, result MachineSpec) {
 	for _, result = range s {
-		if result.SpecName == in {
+		if result.Name == in {
 			found = true
 			return
 		}
@@ -39,6 +40,6 @@ func (m MachineSpecs) Println() {
 	fmt.Println("---")
 	fmt.Println("MachineSpecs:")
 	for _, i := range m {
-		fmt.Println("   SpecName: " + i.SpecName + ", Memory: " + i.Memory + ", Disk: " + i.Disk)
+		fmt.Println("   SpecName: " + i.Name + ", Memory: " + i.Memory + ", Disk: " + i.Disk)
 	}
 }

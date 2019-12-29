@@ -55,14 +55,17 @@ func main() {
 	model.RunSpecTests(job, machineSpecs)
 
 	fmt.Println("---")
-	fmt.Println("Starting job!")
+	fmt.Println("Starting job:", job.Name)
 	for _, machine := range job.Machines {
 		fmt.Println("  ", machine.ToString())
 
 		fmt.Println("  Creating Machine as spec:")
 		_, spec := machineSpecs.FindByName(machine.MachineSpec)
 		fmt.Println("    ", spec.ToString())
-		err := virt.CreateVM(machine, spec)
+		dir := job.VMPath + machine.Name
+		disk.DeleteDir(dir)
+		disk.CreateDir(dir)
+		err := virt.CreateVM(machine, dir, spec)
 		if err != nil {
 			fmt.Println(err)
 		} else {

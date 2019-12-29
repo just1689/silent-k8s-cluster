@@ -10,7 +10,7 @@ func RunSpecTests(job Job, specs MachineSpecs) {
 		if !found {
 			panic(fmt.Errorf("  Could not find MachineSpec named: ", m.MachineSpec))
 		}
-		fmt.Println("  > success: ", spec.SpecName)
+		fmt.Println("  > success: ", spec.Name)
 	}
 
 }

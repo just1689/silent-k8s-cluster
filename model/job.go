@@ -4,6 +4,7 @@ import "fmt"
 
 type Job struct {
 	Name     string    `json:"name"`
+	VMPath   string    `json:"vm-path"`
 	Machines []Machine `json:"machines"`
 }
 

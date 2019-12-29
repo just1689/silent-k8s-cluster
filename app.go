@@ -64,8 +64,9 @@ func main() {
 		}
 
 		before := cli.GetDevices(routerConfig)
-		if virt.StartVM(machine, spec) != nil {
+		if se, err := virt.StartVM(machine); err != nil {
 			logrus.Errorln(err)
+			logrus.Errorln(se)
 		}
 		time.Sleep(5 * time.Minute)
 		after := cli.GetDevices(routerConfig)
@@ -75,9 +76,9 @@ func main() {
 		}
 
 		for _, r := range diff {
-			logrus.Println(r.ToString())
-			out, _ := ssh.RunWithPassword(r.Address, 22, job.SSH.Username, job.SSH.Password, "ifconfig")
-			logrus.Println(out)
+			logrus.Println("Device:", r.ToString())
+			so, se, err := ssh.RunWithPassword(r.Address, 22, job.SSH.Username, job.SSH.Password, "ifconfig")
+			logrus.Println(so, se, err)
 		}
 		logrus.Println("------------------")
 

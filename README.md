@@ -2,7 +2,7 @@
 
 ## Initial setup
 
-```shell script
+```shell
 # Generate the config files
 go run app.go -generateAll true
 ```
@@ -13,3 +13,8 @@ go run app.go -generateAll true
 - `machine-specs-config.json` details each spec of a machine
 - `router-config.json` is for specifying the Mikrotik router connection details
 
+## Run
+
+```shell
+go run app.go
+```

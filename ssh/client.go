@@ -5,7 +5,7 @@ import (
 	"log"
 )
 
-func RunWithPassword(host string, port int, username, password, cmd string) (err error) {
+func RunWithPassword(host string, port int, username, password, cmd string) (stdout string, err error) {
 	sshApi, err := sshwrapper.DefaultSshApiSetup(host, port, username, "")
 	sshApi.Password = password
 	err = sshApi.DefaultSshPasswordSetup()
@@ -13,7 +13,7 @@ func RunWithPassword(host string, port int, username, password, cmd string) (err
 		log.Fatal(err)
 	}
 
-	var stdout, stderr string
+	var stderr string
 	stdout, stderr, err = sshApi.Run(cmd)
 	if err != nil {
 		log.Print(stdout)

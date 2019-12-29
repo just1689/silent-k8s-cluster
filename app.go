@@ -6,6 +6,7 @@ import (
 	"github.com/just1689/silent-k8s-cluster/cli"
 	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/model"
+	"github.com/just1689/silent-k8s-cluster/ssh"
 	"github.com/just1689/silent-k8s-cluster/virt"
 	"github.com/sirupsen/logrus"
 	"os"
@@ -73,11 +74,13 @@ func main() {
 			logrus.Panic("Unexpectedly found 0 new devices! Check that the network adapter is correct.")
 		}
 
-		logrus.Println("The diff is as follows: ")
 		for _, r := range diff {
 			logrus.Println(r.ToString())
+			out, _ := ssh.RunWithPassword(r.Address, 22, job.SSH.Username, job.SSH.Password, "ifconfig")
+			logrus.Println(out)
 		}
 		logrus.Println("------------------")
+
 		//TODO: set IP address of VM, reboot
 		//TODO: ssh clear, ssh-copy-id copy
 

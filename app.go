@@ -77,25 +77,31 @@ func main() {
 }
 
 func checkForGenerateFlags() {
+	generated := false
+
 	if *generateRouterConfig {
 		disk.GenerateRouterConfigToFile(*routerConfigFile)
-		os.Exit(0)
+		generated = true
 	}
 
 	if *generateJobConfig {
 		disk.GenerateJobConfigToFile(*jobConfigFile)
-		os.Exit(0)
+		generated = true
 	}
 
 	if *generateMachineSpecsConfig {
 		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
-		os.Exit(0)
+		generated = true
 	}
 
 	if *generateAll {
 		disk.GenerateRouterConfigToFile(*routerConfigFile)
 		disk.GenerateJobConfigToFile(*jobConfigFile)
 		disk.GenerateMachineSpecsConfigToFile(*machineSpecsConfigFile)
+	}
+
+	if generated {
 		os.Exit(0)
 	}
+
 }

@@ -6,6 +6,7 @@ type Job struct {
 	Name     string    `json:"name"`
 	VMPath   string    `json:"vm-path"`
 	ISOPath  string    `json:"iso-path"`
+	SSH      SSH       `json:"ssh"`
 	Machines []Machine `json:"machines"`
 }
 

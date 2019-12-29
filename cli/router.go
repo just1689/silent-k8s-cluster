@@ -6,6 +6,16 @@ import (
 	"log"
 )
 
+func GetCandidateDevices(in []model.DeviceLease) []model.DeviceLease {
+	result := make([]model.DeviceLease, 0)
+	for _, d := range in {
+		if d.IsCandidate() {
+			result = append(result, d)
+		}
+	}
+	return result
+}
+
 func GetDevices(config model.RouterConfig) []model.DeviceLease {
 
 	c, err := routeros.Dial(config.Address, config.Username, config.Password)

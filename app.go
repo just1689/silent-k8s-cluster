@@ -40,18 +40,6 @@ func main() {
 	machineSpecs.Println()
 	job.Println()
 
-	fmt.Println("Connecting to Router")
-	devices := cli.GetDevices(routerConfig)
-	fmt.Println("   > success")
-	fmt.Print("Devices without hostname: ")
-	total := 0
-	for _, d := range devices {
-		if d.IsCandidate() {
-			total++
-		}
-	}
-	fmt.Println(total)
-
 	model.RunSpecTests(job, machineSpecs)
 
 	fmt.Println("---")
@@ -73,6 +61,13 @@ func main() {
 		}
 
 	}
+
+	fmt.Println("Connecting to Router")
+	allD := cli.GetDevices(routerConfig)
+	devices := cli.GetCandidateDevices(allD)
+
+	fmt.Println("   > success")
+	fmt.Print("Devices without hostname: ", len(devices))
 
 }
 

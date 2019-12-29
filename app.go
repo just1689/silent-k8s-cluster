@@ -65,7 +65,7 @@ func main() {
 		dir := job.VMPath + machine.Name
 		disk.DeleteDir(dir)
 		disk.CreateDir(dir)
-		err := virt.CreateVM(machine, dir, spec)
+		err := virt.CreateVM(machine, dir, spec, job.ISOPath)
 		if err != nil {
 			fmt.Println(err)
 		} else {

@@ -7,7 +7,9 @@ import (
 	"github.com/just1689/silent-k8s-cluster/disk"
 	"github.com/just1689/silent-k8s-cluster/model"
 	"github.com/just1689/silent-k8s-cluster/virt"
+	"github.com/sirupsen/logrus"
 	"os"
+	"time"
 )
 
 var (
@@ -60,14 +62,30 @@ func main() {
 			fmt.Println("    > success")
 		}
 
+		before := cli.GetDevices(routerConfig)
+		if virt.StartVM(machine, spec) != nil {
+			logrus.Errorln(err)
+		}
+		time.Sleep(5 * time.Minute)
+		after := cli.GetDevices(routerConfig)
+		diff := cli.FindNew(before, after)
+		if len(diff) == 0 {
+			logrus.Panic("Unexpectedly found 0 new devices! Check that the network adapter is correct.")
+		}
+
+		logrus.Println("The diff is as follows: ")
+		for _, r := range diff {
+			logrus.Println(r.ToString())
+		}
+		logrus.Println("------------------")
+		//TODO: set IP address of VM, reboot
+		//TODO: ssh clear, ssh-copy-id copy
+
 	}
 
-	fmt.Println("Connecting to Router")
-	allD := cli.GetDevices(routerConfig)
-	devices := cli.GetCandidateDevices(allD)
-
-	fmt.Println("   > success")
-	fmt.Print("Devices without hostname: ", len(devices))
+	//TODO: initial K8s setup
+	//TODO: modify ANSIBLE file
+	//TODO: run ANSIBLE
 
 }
 

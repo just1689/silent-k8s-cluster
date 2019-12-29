@@ -7,6 +7,15 @@ import (
 	"strconv"
 )
 
+func StartVM(machine model.Machine, spec model.MachineSpec) (err error) {
+	s := `Start-VM -Name "` + machine.Name + `"`
+	_, stdE := cli.ExecutePS(s)
+	if stdE != "" {
+		return errors.New(stdE)
+	}
+	return
+}
+
 func CreateVM(machine model.Machine, dir string, spec model.MachineSpec, isoPath string) (err error) {
 
 	s := `Remove-VM -Name "` + machine.Name + `" -Force`

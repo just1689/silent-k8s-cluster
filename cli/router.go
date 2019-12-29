@@ -6,11 +6,19 @@ import (
 	"log"
 )
 
-func GetCandidateDevices(in []model.DeviceLease) []model.DeviceLease {
+func FindNew(before, after []model.DeviceLease) []model.DeviceLease {
 	result := make([]model.DeviceLease, 0)
-	for _, d := range in {
-		if d.IsCandidate() {
-			result = append(result, d)
+	var found bool
+	for _, a := range after {
+		found = false
+		for _, b := range before {
+			if a.Address == b.Address {
+				found = true
+				break
+			}
+		}
+		if !found {
+			result = append(result, a)
 		}
 	}
 	return result
